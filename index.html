@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        body, h1, h2, h3, h4, h5, h6, p, pre, ul, ol, li, dl, dt, dd, form, input, textarea, select, option {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            display: block;
+        }
+
+        h1, h2, h3, h4, h5, h6, input, textarea, select, button {
+            font-size: 100%;
+        }
+
+        input, textarea, select, button, option {
+            outline: 0;
+            border: 0;
+            background-color: #E4393C;
+            border-bottom: 1px solid white;
+            font-family: inherit;
+            font-size: inherit;
+            font-weight: inherit;
+        }
+
+        body {
+            background: #495c68;
+        }
+
+        #sence {
+            width: 600px;
+            height: 600px;
+            border: 1px solid white;
+            margin: auto;
+            position: absolute;
+            /*top: 0;*/
+            left: 0;
+            right: 0;
+            /*bottom: 0;*/
+        }
+
+        .block {
+            width: 28px;
+            height: 28px;
+            margin: 1px;
+            float: left;
+            background: cornflowerblue;
+        }
+
+        .shiwu {
+            background: crimson;
+        }
+
+        .she {
+            background: #495c68;
+        }
+
+        .left_box {
+            float: right;
+            width: 300px;
+            height: 100%;
+            background: #E4393C;
+            position: absolute;
+        }
+
+        .left_box li {
+            cursor: pointer;
+        }
+
+        .shang ul {
+            /*background: cyan;*/
+            margin: auto;
+            /*margin: 30px;*/
+            width: 80px;
+            height: 220px;
+        }
+
+        .xia ul {
+            margin: auto;
+            margin-top: 30px;
+            width: 80px;
+            height: 250px;
+        }
+
+        .xia ul li {
+            margin: auto;
+            margin-top: 20px;
+            display: inline-block;
+            background: cornflowerblue;
+            padding: 10px 20px;
+            font-family: "微软雅黑", "宋体", "sans-serif";
+            font-size: 20px;
+        }
+
+        .shang ul li {
+            margin: auto;
+            margin-top: 20px;
+            display: inline-block;
+            background: coral;
+            padding: 10px 20px;
+            font-family: "微软雅黑", "宋体", "sans-serif";
+            font-size: 20px;
+        }
+
+        .text {
+            margin: auto;
+            border: 0;
+            border-bottom: 1px solid white;
+            color: white;
+            placeholder-color: #fff;
+        }
+
+        .title {
+            display: block;
+            text-align: center;
+            color: white;
+            font-family: "微软雅黑", "宋体", "sans-serif";
+            font-size: 30px;
+        }
+
+        .tanchuchuang {
+            opacity: 0;
+            z-index: 99999;
+            width: 300px;
+            height: 150px;
+            background: #f7c942;
+            border: 8px solid #E678DC;
+            border-radius: 20px;
+            margin: auto;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+
+        .tanchuchuang span {
+            display: block;
+            font-size: 45px;
+            font-family: "微软雅黑", "华文细黑", Arial, Helvetica, sans-serif;
+            font-weight: 800;
+            margin-top: 10px;;
+            color: white;
+            text-align: center;
+        }
+
+        .cxks {
+            display: inline-block;
+            background: #E678DC;
+            color: white;
+            font-size: 25px;
+            padding: 8px;
+            font-family: "微软雅黑", "华文细黑", Arial, Helvetica, sans-serif;
+            border-radius: 15px;
+            cursor: pointer;
+            margin-left: 90px;
+            margin-top: 10px;
+        }
+
+        .bianse {
+            background: cyan;
+        }
+        .right{
+            width: 200px;
+            height: 200px;
+            /*background: coral;*/
+            float: right;
+            margin: 80px;
+        }
+        strong{
+            font-family: "微软雅黑", "华文细黑", Arial, Helvetica, sans-serif;
+            font-size: 50px;
+            text-align: center;
+            color: white;
+        }
+        .fraction{
+            margin-left: 70px;
+            font-size: 120px;
+        }
+    </style>
+</head>
+<body>
+<div class="tanchuchuang">
+    <span>GAME OVER</span>
+
+    <div class="cxks">重新开始</div>
+</div>
+<div class="left_box">
+    <span class="title">极品飞蛇</span>
+
+    <div class="shang">
+        <ul>
+            <li class="shi">简单</li>
+            <li class="sanshi">中等</li>
+            <li class="wushi">困难</li>
+        </ul>
+        <input type="text" class="text" placeholder="输入行数(按回车确定)"/>
+    </div>
+    <div class="xia">
+        <ul>
+            <li class="kaishi">开始</li>
+            <li class="zanting">暂停</li>
+            <li class="chongzhi">重置</li>
+        </ul>
+    </div>
+</div>
+<div id="sence"></div>
+
+<div class="right">
+    <strong>得分</strong><br>
+    <strong class="fraction">0</strong>
+</div>
+<script src="jquery-1.12.0.js"></script>
+<script>
+    $(function () {
+        var donghua = function(){
+            $("#sence")
+                    .animate({top: 100}, 300)
+                    .animate({top: 20}, 300)
+                    .animate({top: 40}, 300)
+//                    .animate({left: "+=100"}, 300)
+//                    .animate({left: "-=200"}, 300)
+//                    .animate({left: "+=100"}, 300)
+                    .animate({width: "toggle"}, 300)
+                    .animate({width: "toggle"}, 300);
+        }
+        donghua();
+        var zb2id = function (x, y) {
+            return x + "-" + y;
+        }
+//        画场景
+        var hang = 20;
+        var huachangjing = function (hang) {
+            var i = 0, j = 0, sence = $("#sence"), wh = Math.floor(600 / hang);
+            sence.empty();
+            hang = hang || 20;
+            for (; i < hang; i++) {
+                for (j = 0; j < hang; j++) {
+                    $("<div>")
+                            .addClass("block")
+                            .attr("id", zb2id(i, j))
+                            .width(wh - 2)
+                            .height(wh - 2)
+                            .appendTo(sence);
+                }
+            }
+            sence.width(wh * hang).height(wh * hang);
+        }
+        huachangjing();
+
+//        手动输入场景
+        $(".text").bind("keydown", function (e) {
+            if (e.keyCode === 13) {
+                hang = $(".text").val();
+                huachangjing(hang);
+                huashe();
+                shiwu = huashiwu();
+                a = setInterval(move, 150);
+            }
+        });
+
+//        加分
+        var num = 0;
+        var fraction = function(){
+            num +=1;
+            var fenshu = $(".fraction").html(num);
+        }
+
+//        渲染蛇
+        var she = [{x: 0, y: 0}, {x: 0, y: 1}, {x: 0, y: 2}];
+        var huashe = function () {
+            she.forEach(function (v) {
+                $("#" + zb2id(v.x, v.y)).addClass("she");
+            })
+        };
+        huashe();
+
+//        渲染食物
+        var shiwu = {};
+        var huashiwu = function () {
+            var _x = Math.floor(Math.random() * hang);
+            var _y = Math.floor(Math.random() * hang);
+            $("#" + zb2id(_x, _y)).addClass("shiwu");
+            console.log(_x, _y)
+            return {x: _x, y: _y};
+        };
+        shiwu = huashiwu()
+
+//        让蛇移动
+        var fangxiang = 39;
+        var move = function () {
+            var jiutou = she[she.length - 1];
+//            console.log(hang)
+//                向右
+            if (fangxiang === 39) {
+                var xintou = {x: jiutou.x, y: jiutou.y + 1};
+//                向下
+            } else if (fangxiang === 40) {
+                var xintou = {x: jiutou.x + 1, y: jiutou.y};
+//                向上
+            } else if (fangxiang === 37) {
+                var xintou = {x: jiutou.x, y: jiutou.y - 1};
+//                向左
+            } else if (fangxiang === 38) {
+                var xintou = {x: jiutou.x - 1, y: jiutou.y};
+            }
+
+//             吃到食物
+            if (xintou.x === shiwu.x && xintou.y === shiwu.y) {
+                she.push(xintou);
+                $("#" + zb2id(shiwu.x, shiwu.y)).addClass("she").removeClass("shiwu");
+                fraction();
+                shiwu = huashiwu();
+//                console.log(shiwu)
+//                console.log(1)
+//                没有吃到食物
+            } else {
+                she.push(xintou);
+                $("#" + zb2id(xintou.x, xintou.y)).addClass("she");
+                var weiba = she.shift();
+                $("#" + zb2id(weiba.x, weiba.y)).removeClass("she");
+            }
+            //        撞墙撞死
+            if (xintou.x < 0 || xintou.x > hang - 2 || xintou.y < 0 || xintou.y > hang - 2) {
+                $(".tanchuchuang").css({opacity: 1});
+                clearInterval(a);
+                return;
+            }
+        }
+
+//        操作蛇的移动
+        $(document).bind("keydown", function (e) {
+            if (Math.abs(e.keyCode - fangxiang) === 2) {
+                return;
+            }
+            if (e.keyCode === 37) {
+                fangxiang = 37;
+            } else if (e.keyCode === 38) {
+                fangxiang = 38;
+            } else if (e.keyCode === 39) {
+                fangxiang = 39;
+            } else if (e.keyCode === 40) {
+                fangxiang = 40;
+            }
+        });
+        var sudu = 150;
+        var timerId = function () {
+            a = setInterval(move, sudu);
+        };
+        //        游戏开始
+        $(".kaishi").bind("click", function () {
+            timerId();
+            $(".left_box").animate({width: "toggle"}, 1000);
+        })
+//        游戏暂停
+        $(".zanting").bind("click", function () {
+            clearInterval(a);
+        })
+//        游戏重置
+        $(".chongzhi").bind("click", function () {
+            clearInterval(a);
+            huachangjing();
+            she = [{x: 0, y: 0}, {x: 0, y: 1}, {x: 0, y: 2}];
+            huashe();
+            shiwu = huashiwu();
+        })
+        //重新开始
+        $(".cxks").bind("click", function () {
+            clearInterval(a);
+            huachangjing();
+            she = [{x: 0, y: 0}, {x: 0, y: 1}, {x: 0, y: 2}];
+            huashe();
+            shiwu = huashiwu();
+            num = 0;
+            $(".fraction").html("0");
+            $(".shi").css({background: "#FF7F50"});
+            $(".sanshi").css({background: "#FF7F50"});
+            $(".wushi").css({background: "#FF7F50"});
+            $(".tanchuchuang").css({opacity: 0});
+            $(".left_box").animate({width: "toggle"}, 1000);
+        })
+//        输入10，20，30
+        $(".shi").bind("click", function () {
+            donghua();
+            sudu = 250;
+            hang = 10;
+            huachangjing(hang);
+            huashe();
+            shiwu = huashiwu();
+            $(".shi").css({background: "#894AD2"});
+        })
+        $(".sanshi").bind("click", function () {
+            donghua();
+            sudu = 100;
+            hang = 30;
+            huachangjing(hang);
+            huashe();
+            shiwu = huashiwu();
+            $(".sanshi").css({background: "#894AD2"});
+        })
+        $(".wushi").bind("click", function () {
+            donghua();
+            sudu = 30;
+            hang = 50;
+            huachangjing(hang);
+            huashe();
+            shiwu = huashiwu();
+            $(".wushi").css({background: "#894AD2"});
+        })
+    })
+</script>
+</body>
+</html>
